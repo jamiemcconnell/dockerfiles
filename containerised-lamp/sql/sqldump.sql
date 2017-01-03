@@ -1,0 +1,6 @@
+USE myDatabase;
+
+CREATE TABLE myTable (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255)
+);

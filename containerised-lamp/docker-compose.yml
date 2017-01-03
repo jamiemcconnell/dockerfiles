@@ -1,0 +1,21 @@
+db:
+  image: mariadb:10.0.23
+  volumes:
+    - ./sql:/docker-entrypoint-initdb.d
+  environment:
+    - MYSQL_ROOT_PASSWORD=RootPassword123
+    - MYSQL_USER=default
+    - MYSQL_PASSWORD=Password123
+    - MYSQL_DATABASE=myDatabase
+  ports:
+    - '3306:3306'
+
+webserver:
+  build: .
+  dockerfile: ApachePHP.Dockerfile
+  volumes:
+    - ./src:/var/www/html
+  ports:
+    - '80:80'
+  links:
+    - 'db'
