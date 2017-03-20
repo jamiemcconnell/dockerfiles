@@ -1,0 +1,8 @@
+FROM nginx:alpine
+
+COPY vars.conf /etc/nginx/vars.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
+VOLUME /application
+EXPOSE 80
+
+CMD /bin/sh -c "echo 'Starting Nginx' && nginx -g 'daemon off;'"

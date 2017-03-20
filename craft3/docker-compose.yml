@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+  db:
+    image: mysql:8
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "craft"
+
+  phpfpm:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    volumes:
+      - ./app:/application
+
+  web:
+    depends_on:
+      - phpfpm
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - 80:80
+    environment:
+      CRAFT_NGINX_HOST: "yourhost"
+      CRAFT_NGINX_ROOT: "/application"
+
