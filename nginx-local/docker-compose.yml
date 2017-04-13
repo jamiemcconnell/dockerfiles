@@ -1,0 +1,6 @@
+nginx:
+  image: nginx:1.11.13-alpine
+  volumes:
+    - ./:/usr/share/nginx/html:ro
+  ports:
+    - "80:80"
